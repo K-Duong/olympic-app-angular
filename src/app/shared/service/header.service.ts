@@ -2,8 +2,6 @@ import {Injectable} from "@angular/core";
 import {Metadata} from "../../models/olympic.model";
 import {BehaviorSubject} from "rxjs";
 
-
-
 @Injectable({
   providedIn: 'root'
 })

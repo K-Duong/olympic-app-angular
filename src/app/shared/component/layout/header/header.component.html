@@ -1,1 +1,14 @@
-<p>header works!</p>
+<div class="heading">
+  <h2>Olympic games app</h2>
+  <div class="center">
+    <div>{{ title }}</div>
+  </div>
+  <div class="split">
+    @for (indicator of indicators; track indicator.label) {
+      <div class="split">
+        <p>{{ indicator.label }} :</p>
+        <p>{{ indicator.value }}</p>
+      </div>
+    }
+  </div>
+</div>

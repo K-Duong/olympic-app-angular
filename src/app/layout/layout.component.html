@@ -1,3 +1,6 @@
-<p>layout works!</p>
-<app-header></app-header>
-<router-outlet></router-outlet>
+<app-header [title]="(headerService.metadata$ | async)?.title ?? ''"
+            [indicators]="(headerService.metadata$ | async)?.indicators ?? []"
+/>
+<ng-container>
+  <router-outlet></router-outlet>
+</ng-container>

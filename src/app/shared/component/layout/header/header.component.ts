@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import {Component, Input} from '@angular/core';
+import {Indicator} from "../../../../models/olympic.model";
 
 @Component({
   selector: 'app-header',
@@ -8,5 +9,8 @@ import { Component } from '@angular/core';
   styleUrl: './header.component.scss'
 })
 export class HeaderComponent {
+  @Input() title!: string;
+  @Input() label!: string;
+  @Input() indicators!: Indicator[];
 
 }
