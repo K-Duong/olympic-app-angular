@@ -1,20 +1,21 @@
+@use 'breakpoints' as *;
 
-.wrapper-container {
-    display: flex;
-    justify-content: center;
+// Le conteneur fixe la taille du graphique (maintainAspectRatio: false côté Chart.js)
+.chart-container {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+
+  @include tablet {
+    aspect-ratio: 2;
+  }
+
+  @include desktop {
+    aspect-ratio: 2.5;
+  }
 }
 
-.container {
-    width: 50%;
-    h2{
-        text-align: center;
-        color: gray;
-    }
-}
-
-
-@media screen and (max-width: 1000px) {
-    .container {
-        width: 100%;
-    }
+.axis-label {
+  text-align: center;
+  color: gray;
 }

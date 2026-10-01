@@ -5,9 +5,9 @@
       <div class="center">
         <div>{{ title }}</div>
       </div>
-      <div class="split">
+      <div class="indicators">
         @for (indicator of indicators; track indicator.label) {
-          <div class="split">
+          <div class="indicator">
             <p>{{ indicator.label }} :</p>
             <p>{{ indicator.value }}</p>
           </div>

@@ -102,7 +102,7 @@ export class HomeComponent implements OnInit {
         }],
       },
       options: {
-        aspectRatio: 2.5,
+        maintainAspectRatio: false,
         onClick: (e) => {
           if (e.native) {
             const points = pieChart.getElementsAtEventForMode(e.native, 'point', {intersect: true}, true)

@@ -1,9 +1,12 @@
-.pie-container{
+@use 'breakpoints' as *;
+
+// Le conteneur fixe la taille du graphique
+.pie-container {
   position: relative;
   width: 100%;
-  //aspect-ratio: 2.5;
+  aspect-ratio: 1;
 
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  @include tablet {
+    aspect-ratio: 2;
+  }
 }

@@ -1,6 +1,28 @@
 /* You can add global styles to this file, and also import other style files */
+@use 'breakpoints' as *;
+
 * {
   font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+// Grille responsive : 4 colonnes (mobile), 8 (tablette), 12 (desktop)
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+  max-width: 1200px;
+  margin-inline: auto;
+  padding: 16px;
+
+  @include tablet {
+    grid-template-columns: repeat(8, minmax(0, 1fr));
+    gap: 24px;
+    padding: 24px;
+  }
+
+  @include desktop {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+  }
 }
 
 .active-link {

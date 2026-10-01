@@ -1,0 +1,11 @@
+// Mobile first : les styles de base ciblent le mobile (≤ 767px, 4 colonnes)
+$tablet: 768px;   // 768–1199px : 8 colonnes
+$desktop: 1200px; // ≥ 1200px : 12 colonnes
+
+@mixin tablet {
+  @media (min-width: $tablet) { @content; }
+}
+
+@mixin desktop {
+  @media (min-width: $desktop) { @content; }
+}

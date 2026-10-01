@@ -1,5 +1,18 @@
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding-bottom: 16px;
+@use 'breakpoints' as *;
+
+// Mobile et tablette : header et contenu en pleine largeur, empilés
+.aside,
+.main {
+  grid-column: 1 / -1;
+}
+
+// Desktop : header en colonne latérale, contenu à côté
+@include desktop {
+  .aside {
+    grid-column: span 3;
+  }
+
+  .main {
+    grid-column: span 9;
+  }
 }

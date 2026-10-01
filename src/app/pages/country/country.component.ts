@@ -104,7 +104,7 @@ export class CountryComponent implements OnInit {
         ]
       },
       options: {
-        aspectRatio: 2.5
+        maintainAspectRatio: false
       }
     });
     this.lineChart = lineChart;
