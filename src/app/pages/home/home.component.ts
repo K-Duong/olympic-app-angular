@@ -17,23 +17,8 @@ interface DataSetPie {
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  public metadata : Metadata = {
-    title: 'Medals per Country',
-    indicators: [
-      {
-        type: 'numOfCountries',
-        label: 'Number of countries',
-        value: 0
-      },
-      {
-        type: 'numOfJOs',
-        label: 'Number of JOs',
-        value: 0
-      }
-    ]
-  }
+
   public pieChart!: Chart<"pie", number[], string>;
-  public totalCountries: number = 0
   public totalJOs: number = 0
   public error!: string
 
@@ -46,7 +31,7 @@ export class HomeComponent implements OnInit {
     this._apiService.getOlympicData().pipe(
       filter((data) => {
         if (!data || data.length < 1) {
-          this._router.navigateByUrl('not-found');
+          this._router.navigateByUrl('/not-found');
           return false;
         }
         return true;
@@ -54,23 +39,32 @@ export class HomeComponent implements OnInit {
     ).subscribe({
         next: (data) => {
           this.totalJOs = this._getTotalOlympicYears(data);
-          console.log('total jos: ', this.totalJOs);
 
-          this.metadata.indicators.forEach(item => {
-            if (item.type === 'numOfCountries') item.value = data.length;
-            if (item.type === 'numOfJOs') item.value = this.totalJOs;
-          });
-          this._headerService.setMetadata(this.metadata);
+          //render header content with indicators
+          const metadata : Metadata = {
+            title: 'Medals per Country',
+            indicators: [
+              {
+                type: 'numOfCountries',
+                label: 'Number of countries',
+                value: data.length
+              },
+              {
+                type: 'numOfJOs',
+                label: 'Number of JOs',
+                value: this.totalJOs
+              },
+            ]
+          }
+          this._headerService.setMetadata(metadata);
 
-          this.totalCountries = data.length;
-          this.buildPieChart(this._createDataSetForPie(data));
+          this.buildPieChart(this._createDatasetForPie(data));
         },
         error: (err) => {
-          console.log('error: ', err)
+          this._router.navigateByUrl('/not-found');
         }
       }
     );
-    console.log('metadata: ', this.metadata)
   }
 
   private _getTotalOlympicYears(data: Olympic[]): number {
@@ -80,7 +74,7 @@ export class HomeComponent implements OnInit {
     return Array.from(setYear).length;
   }
 
-  private _createDataSetForPie(data: Olympic[]): DataSetPie[] | [] {
+  private _createDatasetForPie(data: Olympic[]): DataSetPie[] | [] {
     if (!data || data.length < 1) {
       console.log('no data set');
       return []

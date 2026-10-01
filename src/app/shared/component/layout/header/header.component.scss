@@ -2,9 +2,18 @@
 .heading {
   flex-direction: column;
   justify-items: center;
-  padding-bottom: 12px;
+  //padding-bottom: 12px;
   border-bottom: black solid 1px;
+
+  .metadata {
+    display: flex;
+    flex-direction: column;
+    //justify-content: space-between;
+    align-items: center;
+    padding-bottom: 16px;
+  }
 }
+
 .center {
   display: flex;
   justify-content: center;
