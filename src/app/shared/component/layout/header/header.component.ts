@@ -13,4 +13,5 @@ export class HeaderComponent {
   @Input() label!: string;
   @Input() indicators!: Indicator[];
 
+  protected readonly Array = Array;
 }

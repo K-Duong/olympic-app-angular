@@ -1,6 +1,6 @@
 import {inject, Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
-import {Observable} from "rxjs";
+import {map, Observable, shareReplay} from "rxjs";
 import {Olympic} from "../../models/olympic.model";
 
 @Injectable({
@@ -10,23 +10,31 @@ export class ApiService {
   baseUrl = './assets/mock/olympic.json';
   http = inject(HttpClient);
 
+  public olympics$: Observable<Olympic[]> = this.http.get<Olympic[]>(this.baseUrl).pipe(
+    shareReplay(1)
+  )
   /**
    * @returns: Olympics observable
    * */
   public getOlympicData(): Observable<Olympic[]> {
-    return this.http.get<Olympic[]>(this.baseUrl)
+    return this.olympics$;
   };
 
   /**
    * get info's olympic country by countryName
    */
 
-  // public getCountryByCountryName(data : Olympic[], countryName) : Olympic | undefined {
-  //   if (!data || data.length < 1) {
-  //     console.log('No Olympic country found');
-  //   }
-  //   const foundCountry = data.find(d => d.country.toLowerCase() === countryName.toLowerCase());
-  //   console.log('country found', foundCountry);
-  //   return foundCountry;
-  // }
+  public getCountryByName(countryName: string): Observable<Olympic | null> {
+    return this.olympics$.pipe(
+      map((data) => {
+        if (!data || data.length < 1) {
+          console.log('No data found');
+          return null
+        }
+        const foundCountry = data.find(d => d.country.toLowerCase() === countryName.toLowerCase());
+
+        return foundCountry ?? null;
+      })
+    )
+  }
 }
