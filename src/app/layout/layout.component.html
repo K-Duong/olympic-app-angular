@@ -1,5 +1,5 @@
-<app-header [title]="(headerService.metadata$ | async)?.title ?? ''"
-            [indicators]="(headerService.metadata$ | async)?.indicators ?? []"
+<app-header [title]="headerMetadata.title"
+            [indicators]="headerMetadata.indicators"
 />
 <ng-container>
   <router-outlet></router-outlet>
