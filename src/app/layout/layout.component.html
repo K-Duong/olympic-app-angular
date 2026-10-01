@@ -1,5 +1,7 @@
-<app-header [title]="headerMetadata.title"
-            [indicators]="headerMetadata.indicators"
+<app-header
+  *ngIf="headerMetadata$ | async as headerMetadata"
+  [title]="headerMetadata.title"
+  [indicators]="headerMetadata.indicators"
 />
 <div class="container">
   <router-outlet></router-outlet>
