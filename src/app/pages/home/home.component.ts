@@ -2,12 +2,13 @@ import {Component, inject, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {filter} from "rxjs";
 import Chart from 'chart.js/auto';
-import {Metadata, Olympic,} from "../../models/olympic.model";
+import {Metadata, Olympic, Participation,} from "../../models/olympic.model";
 import {ApiService} from "../../shared/service/api.service";
 import {HeaderService} from "../../shared/service/header.service";
 
 interface DataSetPie {
-  country: string,
+  countryId: number,
+  countryName: string,
   sumOfMedals: number,
 }
 
@@ -69,7 +70,7 @@ export class HomeComponent implements OnInit {
 
   private _getTotalOlympicYears(data: Olympic[]): number {
     const setYear = new Set(data
-      .map((d) => d.participations.map((p: any) => p.year))
+      .map((d) => d.participations.map((p: Participation) => p.year))
       .flat());
     return Array.from(setYear).length;
   }
@@ -80,18 +81,19 @@ export class HomeComponent implements OnInit {
       return []
     }
     return data.map((d) => ({
-      country: d.country,
+      countryId: d.id,
+      countryName: d.country,
       sumOfMedals: d.participations.reduce((acc, curr) => acc + curr.medalsCount, 0)
     }))
   }
 
-  buildPieChart(dataSet: DataSetPie[]) {
-    const countries = dataSet.map(d => d.country);
-    const sumOfAllMedalsYears = dataSet.map(d => d.sumOfMedals);
+  buildPieChart(dataset: DataSetPie[]) {
+    const countriesName: string[] = dataset.map(d => d.countryName);
+    const sumOfAllMedalsYears = dataset.map(d => d.sumOfMedals);
     const pieChart = new Chart("DashboardPieChart", {
       type: 'pie',
       data: {
-        labels: countries,
+        labels: countriesName,
         datasets: [{
           label: 'Medals',
           data: sumOfAllMedalsYears,
@@ -107,7 +109,8 @@ export class HomeComponent implements OnInit {
             if (points.length) {
               const firstPoint = points[0];
               const countryName = pieChart.data.labels ? pieChart.data.labels[firstPoint.index] : '';
-              this._router.navigate(['country', countryName]);
+              const countryId: number | undefined= dataset.find(d => d.countryName === countryName)?.countryId;
+              this._router.navigate(['country', countryId]);
             }
           }
         }

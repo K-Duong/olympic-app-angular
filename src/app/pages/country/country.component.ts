@@ -26,7 +26,7 @@ export class CountryComponent implements OnInit {
   public error!: string;
 
   constructor(
-    private route: ActivatedRoute,
+    private _route: ActivatedRoute,
     private _router: Router,
     private _headerService: HeaderService,
     private _apiService: ApiService,
@@ -34,9 +34,9 @@ export class CountryComponent implements OnInit {
   }
 
   ngOnInit() {
-    let countryName: string = this.route.snapshot.params['countryName'];
+    const countryId: number = Number(this._route.snapshot.params['id']);
 
-    this._apiService.getCountryByName(countryName).pipe(
+    this._apiService.getCountryById(countryId).pipe(
       filter((country): country is Olympic=> {
         if (!country) {
           this._router.navigateByUrl('/not-found');

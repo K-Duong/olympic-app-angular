@@ -24,15 +24,14 @@ export class ApiService {
    * get info's olympic country by countryName
    */
 
-  public getCountryByName(countryName: string): Observable<Olympic | null> {
+  public getCountryById(countryId: number): Observable<Olympic | null> {
     return this.olympics$.pipe(
       map((data) => {
         if (!data || data.length < 1) {
           console.log('No data found');
           return null
         }
-        const foundCountry = data.find(d => d.country.toLowerCase() === countryName.toLowerCase());
-
+        const foundCountry = data.find(d => d.id === countryId);
         return foundCountry ?? null;
       })
     )
