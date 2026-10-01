@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, DestroyRef, inject, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {filter} from 'rxjs/operators';
 import Chart from 'chart.js/auto';
@@ -24,13 +24,12 @@ export class CountryComponent implements OnInit {
   public lineChart!: Chart<"line", number[], number>;
   public error!: string;
 
-  constructor(
-    private _route: ActivatedRoute,
-    private _router: Router,
-    private _headerService: HeaderService,
-    private _apiService: ApiService,
-  ) {
-  }
+  private _destroyRef = inject(DestroyRef);
+  private _route = inject(ActivatedRoute);
+  private _router = inject(Router);
+  private _headerService = inject(HeaderService);
+  private _apiService = inject(ApiService);
+
 
   ngOnInit() {
     const countryId: number = Number(this._route.snapshot.params['id']);
@@ -107,6 +106,7 @@ export class CountryComponent implements OnInit {
         maintainAspectRatio: false
       }
     });
+    this._destroyRef.onDestroy(() => lineChart.destroy());
     this.lineChart = lineChart;
   }
 }

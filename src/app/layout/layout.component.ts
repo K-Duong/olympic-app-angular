@@ -1,8 +1,8 @@
 import {Component, inject} from '@angular/core';
-import {RouterOutlet} from "@angular/router";
-import {HeaderComponent} from "../shared/component/layout/header/header.component";
-import {HeaderService} from "../shared/service/header.service";
 import {AsyncPipe, NgIf} from "@angular/common";
+import {RouterOutlet} from "@angular/router";
+import {HeaderService} from "../shared/service/header.service";
+import {HeaderComponent} from "../shared/component/layout/header/header.component";
 
 @Component({
   selector: 'app-layout',

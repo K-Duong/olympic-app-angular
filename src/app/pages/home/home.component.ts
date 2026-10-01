@@ -1,6 +1,6 @@
-import {Component, inject, OnInit} from '@angular/core';
+import {Component, DestroyRef, inject, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
-import {filter} from "rxjs";
+import {filter, Subject} from "rxjs";
 import Chart from 'chart.js/auto';
 import {Metadata, Olympic, Participation,} from "../../models/olympic.model";
 import {ApiService} from "../../shared/service/api.service";
@@ -26,6 +26,7 @@ export class HomeComponent implements OnInit {
   private _apiService = inject(ApiService);
   private _router = inject(Router);
   private _headerService = inject(HeaderService);
+  private _destroyRef = inject(DestroyRef);
 
   ngOnInit() {
     //get data olympic
@@ -116,6 +117,7 @@ export class HomeComponent implements OnInit {
         }
       }
     });
+    this._destroyRef.onDestroy(() => pieChart.destroy());
     this.pieChart = pieChart;
   }
 }
