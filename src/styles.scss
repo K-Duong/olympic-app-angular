@@ -1,44 +1,28 @@
 /* You can add global styles to this file, and also import other style files */
-.heading {
-    flex-direction: column;
+* {
+  font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
+.active-link {
+  color: black;
+  text-decoration: none;
+  padding: 8px 16px;
+  border: 0.5px solid black;
+  border-radius: 8px;
+
+  &:hover {
+    background: #f0f0f0;
+  }
+}
 .center {
-    display: flex;
-    justify-content: center;
-    margin: 5px;
+  display: flex;
+  justify-content: center;
+  margin: 5px;
 
-    div {
-        background: #0b868f;
-        padding: 10px;
-        border-radius: 10px;
-        color: white;
-    }
+  div {
+    background: #0b868f;
+    padding: 10px;
+    border-radius: 10px;
+    color: white;
+  }
 }
-
-.split {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    gap: 20px;
-    margin: 5px;
-
-    div {
-        padding: 10px;
-        border: solid #0b868f 1px;
-        border-radius: 10px;
-        color: gray;
-        margin: 0px;
-
-        p {
-            text-align: center;
-            margin: 0;
-        }
-
-        p:last-child {
-            font-weight: bold;
-            color: black;
-        }
-    }
-}
-
