@@ -1,5 +1,5 @@
 import {Component, DestroyRef, inject, OnInit} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
+import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 import {filter} from 'rxjs/operators';
 import Chart from 'chart.js/auto';
 
@@ -14,7 +14,11 @@ interface Dataset {
 
 @Component({
   selector: 'app-country',
+  standalone: true,
   templateUrl: './country.component.html',
+  imports: [
+    RouterLink
+  ],
   styleUrls: ['./country.component.scss']
 })
 

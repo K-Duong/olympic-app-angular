@@ -2,6 +2,9 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 
 import { CountryComponent } from "./country.component";
+import {provideHttpClientTesting} from "@angular/common/http/testing";
+import {provideRouter} from "@angular/router";
+import {provideHttpClient} from "@angular/common/http";
 
 describe('DetailComponent', () => {
   let component: CountryComponent;
@@ -9,9 +12,9 @@ describe('DetailComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CountryComponent ]
-    })
-    .compileComponents();
+      imports: [CountryComponent],
+      providers: [provideHttpClient(), provideHttpClientTesting(), provideRouter([])]
+    }).compileComponents();
 
     fixture = TestBed.createComponent(CountryComponent);
     component = fixture.componentInstance;
