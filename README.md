@@ -1,29 +1,62 @@
-# OlympicGamesStarter
+# Olympic Games App
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.0.6.
+Tableau de bord Angular qui présente les résultats des pays aux Jeux Olympiques : nombre total de médailles par pays, puis le détail par édition pour chaque pays.
 
-Don't forget to install your node_modules before starting (`npm install`).
+Projet réalisé dans le cadre de la formation OpenClassrooms « Développeur Full-Stack Java et Angular », à partir d'un projet de départ (*starter*) refactorisé.
 
-## Development server
+## Fonctionnalités
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+- **Accueil** : un graphique en secteurs avec le nombre total de médailles par pays, ainsi que le nombre de pays et le nombre d'éditions des JO. Un clic sur un secteur ouvre la page du pays.
+- **Page pays** (`/country/:id`) : un graphique en courbe avec les médailles par édition, ainsi que le nombre de participations, de médailles et d'athlètes.
+- **Page introuvable** : pour toute URL inconnue ou tout pays inexistant.
+- **Responsive** : mise en page adaptée au mobile, à la tablette et au desktop.
+- **Indicateurs de chargement** : pendant le chargement des pages et des données.
 
-## Build
+## Stack technique
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+| Outil | Version |
+|---|---|
+| Angular | 18 |
+| TypeScript | 5.4 |
+| RxJS | 7.8 |
+| Chart.js | 4 |
+| Tests | Jasmine + Karma |
 
-## Where to start
+## Prérequis
 
-As you can see, an architecture has already been defined for the project. It is just a suggestion, you can choose to use your own. The predefined architecture includes (in addition to the default angular architecture) the following:
+- Node.js 18.19 ou plus récent (version demandée par Angular 18)
+- npm
 
-- `components` folder: contains every reusable components
-- `pages` folder: contains components used for routing
-- `core` folder: contains the business logic (`services` and `models` folders)
+## Installation et lancement
 
-I suggest you to start by understanding this starter code. Pay an extra attention to the `app-routing.module.ts` and the `olympic.service.ts`.
+```bash
+git clone https://github.com/K-Duong/olympic-app-angular.git
+cd olympic-app-angular
+npm install
+npm start
+```
 
-Once mastered, you should continue by creating the typescript interfaces inside the `models` folder. As you can see I already created two files corresponding to the data included inside the `olympic.json`. With your interfaces, improve the code by replacing every `any` by the corresponding interface.
+L'application est ensuite disponible sur `http://localhost:4200/`.
 
-You're now ready to implement the requested features.
+| Commande | Rôle |
+|---|---|
+| `npm start` | Serveur de développement avec rechargement automatique |
+| `npm run build` | Build de production dans `dist/` |
+| `npm test` | Tests unitaires (Karma, en mode watch) |
+| `npx ng test --watch=false` | Tests unitaires, en une seule exécution |
 
-Good luck!
+Les données proviennent d'un fichier local : `src/assets/mock/olympic.json`.
+
+## Architecture
+
+L'organisation du code, les choix techniques et les solutions apportées aux problèmes du projet de départ sont décrits dans [`architecture.md`](./architecture.md).
+
+## Tests
+
+```bash
+npx ng test --watch=false
+```
+
+Chaque composant a un test de création. On vérifie aussi :
+- le loader : le message par défaut, un message personnalisé et l'accessibilité (`role="status"`) ;
+- Home et Country : le loader est visible avant la réponse HTTP, simulée avec `HttpTestingController`, et disparaît après.
