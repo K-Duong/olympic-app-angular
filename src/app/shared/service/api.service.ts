@@ -1,6 +1,6 @@
 import {inject, Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
-import {map, Observable, shareReplay} from "rxjs";
+import {delay, map, Observable, shareReplay} from "rxjs";
 import {Olympic} from "../../models/olympic.model";
 
 @Injectable({
@@ -11,6 +11,8 @@ export class ApiService {
   http = inject(HttpClient);
 
   public olympics$: Observable<Olympic[]> = this.http.get<Olympic[]>(this.baseUrl).pipe(
+    //fake delay to display loader
+    delay(1500),
     shareReplay(1)
   )
   /**

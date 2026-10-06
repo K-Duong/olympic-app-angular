@@ -1,10 +1,11 @@
 import {Component, DestroyRef, inject, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
-import {filter, Subject} from "rxjs";
+import {filter} from "rxjs";
 import Chart from 'chart.js/auto';
 import {Metadata, Olympic, Participation,} from "../../models/olympic.model";
 import {ApiService} from "../../shared/service/api.service";
 import {HeaderService} from "../../shared/service/header.service";
+import {LoaderComponent} from "../../shared/component/loader/loader.component";
 
 interface DataSetPie {
   countryId: number,
@@ -15,6 +16,7 @@ interface DataSetPie {
 @Component({
   selector: 'app-home',
   standalone: true,
+  imports: [LoaderComponent],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
@@ -23,6 +25,7 @@ export class HomeComponent implements OnInit {
   public pieChart!: Chart<"pie", number[], string>;
   public totalJOs: number = 0
   public error!: string
+  public isLoading = true;
 
   private _apiService = inject(ApiService);
   private _router = inject(Router);
@@ -41,6 +44,7 @@ export class HomeComponent implements OnInit {
       })
     ).subscribe({
         next: (data) => {
+          this.isLoading = false;
           this.totalJOs = this._getTotalOlympicYears(data);
 
           //render header content with indicators
@@ -63,7 +67,8 @@ export class HomeComponent implements OnInit {
 
           this.buildPieChart(this._createDatasetForPie(data));
         },
-        error: (err) => {
+        error: () => {
+          this.isLoading = false;
           this._router.navigateByUrl('/not-found');
         }
       }

@@ -1,6 +1,9 @@
 <div>
   <div class="chart-container">
     <canvas id="countryChart"></canvas>
+    @if (isLoading) {
+      <app-loader class="overlay" message="Loading data…" />
+    }
   </div>
   <h2 class="axis-label">Date</h2>
   <div class="center">

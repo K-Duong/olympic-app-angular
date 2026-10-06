@@ -1,3 +1,6 @@
 <div class="pie-container">
   <canvas id="DashboardPieChart"></canvas>
+  @if (isLoading) {
+    <app-loader class="overlay" message="Loading data…" />
+  }
 </div>

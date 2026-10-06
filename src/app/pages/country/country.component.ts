@@ -6,6 +6,7 @@ import Chart from 'chart.js/auto';
 import {Metadata, Olympic} from "../../models/olympic.model";
 import {HeaderService} from "../../shared/service/header.service";
 import {ApiService} from "../../shared/service/api.service";
+import {LoaderComponent} from "../../shared/component/loader/loader.component";
 
 interface Dataset {
   year: number[],
@@ -17,7 +18,8 @@ interface Dataset {
   standalone: true,
   templateUrl: './country.component.html',
   imports: [
-    RouterLink
+    RouterLink,
+    LoaderComponent
   ],
   styleUrls: ['./country.component.scss']
 })
@@ -27,6 +29,7 @@ export class CountryComponent implements OnInit {
 
   public lineChart!: Chart<"line", number[], number>;
   public error!: string;
+  public isLoading = true;
 
   private _destroyRef = inject(DestroyRef);
   private _route = inject(ActivatedRoute);
@@ -47,6 +50,7 @@ export class CountryComponent implements OnInit {
         return true
       })).subscribe({
       next: (country: Olympic) => {
+        this.isLoading = false;
 
         // create metadata
         const participations = country.participations;
@@ -87,6 +91,10 @@ export class CountryComponent implements OnInit {
 
         this.buildMultiaxisChart(dataset);
 
+      },
+      error: () => {
+        this.isLoading = false;
+        this._router.navigateByUrl('/not-found');
       }
     })
 

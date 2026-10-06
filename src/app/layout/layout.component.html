@@ -1,10 +1,14 @@
 <div class="grid">
-  <app-header class="aside"
-              *ngIf="headerMetadata$ | async as headerMetadata"
-              [title]="headerMetadata.title"
-              [indicators]="headerMetadata.indicators"
-  />
+  @if (headerMetadata$ | async; as headerMetadata) {
+    <app-header class="aside"
+                [title]="headerMetadata.title"
+                [indicators]="headerMetadata.indicators"
+    />
+  }
   <main class="main">
+    @if (isNavigating$ | async) {
+      <app-loader message="Loading page…" />
+    }
     <router-outlet></router-outlet>
   </main>
 </div>
