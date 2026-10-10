@@ -1,20 +1,20 @@
-@if (headerMetadata$ | async; as metadata) {
 <div class="heading">
   <h2>Olympic games app</h2>
-  @if (metadata.title && metadata.title.length > 0 && Array.isArray(metadata.indicators) && metadata.indicators.length > 0) {
-    <div class="metadata">
-      <div class="center">
-        <div>{{ metadata.title }}</div>
+  @if (headerMetadata$ | async; as metadata) {
+    @if (metadata.title && metadata.title.length > 0 && Array.isArray(metadata.indicators) && metadata.indicators.length > 0) {
+      <div class="metadata">
+        <div class="center">
+          <div>{{ metadata.title }}</div>
+        </div>
+        <div class="indicators">
+          @for (indicator of metadata.indicators; track indicator.label) {
+            <div class="indicator">
+              <p>{{ indicator.label }} :</p>
+              <p>{{ indicator.value }}</p>
+            </div>
+          }
+        </div>
       </div>
-      <div class="indicators">
-        @for (indicator of metadata.indicators; track indicator.label) {
-          <div class="indicator">
-            <p>{{ indicator.label }} :</p>
-            <p>{{ indicator.value }}</p>
-          </div>
-        }
-      </div>
-    </div>
+    }
   }
 </div>
-}

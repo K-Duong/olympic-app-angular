@@ -4,6 +4,11 @@
   text-align: center;
   border-bottom: black solid 1px;
 
+  &:not(:has(.metadata)) {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
   .metadata {
     display: flex;
     flex-direction: column;
