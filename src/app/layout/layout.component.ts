@@ -9,7 +9,6 @@ import {
   RouterOutlet
 } from "@angular/router";
 import {distinctUntilChanged, filter, map} from "rxjs";
-import {HeaderService} from "../shared/service/header.service";
 import {HeaderComponent} from "../shared/component/layout/header/header.component";
 import {LoaderComponent} from "../shared/component/loader/loader.component";
 
@@ -26,8 +25,6 @@ import {LoaderComponent} from "../shared/component/loader/loader.component";
   styleUrl: './layout.component.scss'
 })
 export class LayoutComponent {
-  public headerService = inject(HeaderService);
-  public headerMetadata$ = this.headerService.metadata$;
 
   public isNavigating$ = inject(Router).events.pipe(
     filter(event =>

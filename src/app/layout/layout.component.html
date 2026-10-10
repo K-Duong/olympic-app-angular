@@ -1,13 +1,8 @@
 <div class="grid">
-  @if (headerMetadata$ | async; as headerMetadata) {
-    <app-header class="aside"
-                [title]="headerMetadata.title"
-                [indicators]="headerMetadata.indicators"
-    />
-  }
+  <app-header class="aside"/>
   <main class="main">
     @if (isNavigating$ | async) {
-      <app-loader message="Loading page…" />
+      <app-loader message="Loading page…"/>
     }
     <router-outlet></router-outlet>
   </main>
